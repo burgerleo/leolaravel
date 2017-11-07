@@ -14,9 +14,6 @@ class LessonController extends ApiController
 
         $this->lessonTransformar = $lessonTransformar;
     } 
-
-
-
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +57,20 @@ class LessonController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request,[
+            'title' => 'required',
+            'body' => 'required',
+            'free' => 'required'
+        ]);
+        
+
+
+        $create = Lesson::create($request->all());
+        return $request;
+
+
+
     }
 
     /**
