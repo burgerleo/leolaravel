@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Lesson;
 use App\Transformer\LessonTransformer;
 use Illuminate\Http\Request;
-
 class LessonController extends ApiController
 {   
     protected $lessonTransformar;
@@ -63,14 +62,19 @@ class LessonController extends ApiController
             'body' => 'required',
             'free' => 'required'
         ]);
-        
+        // $Lesson = new Lesson;
+        // $Lesson->title = $request->title;
+        // $Lesson->body = $request->body;
+        // $Lesson->free = $request->free;
+        // $Lesson->save();
 
 
         $create = Lesson::create($request->all());
-        return $request;
-
-
-
+        // return $create;
+        return $this->response([
+            'status' =>'success',
+            'date' => $this->lessonTransformar->transform($create)
+        ]);
     }
 
     /**
@@ -117,9 +121,21 @@ class LessonController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $Lesson = Lesson::find($id);
+        // $Lessons->update($request->all());
+
+
+        // $title = $request -> input('title');
+        // $body = $request -> input('body');
+        // $free = $request -> input('free');
+
+
+        // $Lessons -> title = 'httrj555f';
+        // $Lessons -> save();
+
+        return $request->all();
     }
 
     /**
@@ -128,10 +144,14 @@ class LessonController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
     
-
+    public function destroy(Lesson $Lesson)
+    {
+        $Lesson->delete();
+        return $Lesson;
+    }
 }

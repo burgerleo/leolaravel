@@ -29,9 +29,7 @@ class ApiController extends Controller
     			'status_code' => $this->getStatusCode(),
     			'message' =>$message
     		]
-
     	]);
-
     }
 
     public function response($data){
