@@ -152,4 +152,7 @@ class LessonController extends ApiController
         $Lesson->delete();
         return $Lesson;
     }
+    public function showDD(){
+        return 123;
+    }
 }

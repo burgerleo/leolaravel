@@ -17,9 +17,9 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::group(['prefix'=>'v1'],function(){
-	Route::resource('lessons'  ,'LessonController');
-});
+// Route::group(['prefix'=>'v1'],function(){
+// 	Route::resource('lessons'  ,'LessonController');
+// });
 
 // $api = app('Dingo\Api\Routing\Router');
 
@@ -34,9 +34,20 @@ $api->version('v1', function ($api) {
     $api->get('/hello/', function () {
         return "hello";
     });
-		Route::group(['prefix'=>'v1'],function(){
+
+	Route::group(['prefix'=>'v1'],function(){
 		Route::resource('lessons'  ,'LessonController');
+
 	});
-	$api->post('login', 'App\Http\Controllers\Api\Auth\LoginController@login');
-	$api->post('register', 'App\Http\Controllers\Api\Auth\RegisterController@register');
+	Route::get('test', 'LessonController@showDD');
+
+	Route::post('login', 'LoginController@login');
+	Route::post('register', 'RegisterController@register');
+
+
+	Route::get('user', 'UserController@index');
+	Route::get('tw', 'UserController@test');
+
+
 });
+

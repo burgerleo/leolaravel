@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\Auth;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\User;
@@ -15,9 +15,9 @@ class RegisterController extends Controller
 {
     use RegistersUsers;
     use Helpers;
-    
-    public function register(){
-        return 255;
+
+    public function register(Request $request){
+        // return $request;
 
         $validator = $this->validator($request->all());
         if($validator->fails()){
@@ -58,7 +58,7 @@ class RegisterController extends Controller
         ]);
     }
     public function showDD(){
-        return 123;
+        return 'vvv';
     }
 
 }
