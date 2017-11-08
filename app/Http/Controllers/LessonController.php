@@ -124,18 +124,15 @@ class LessonController extends ApiController
     public function update(Request $request,$id)
     {
         $Lesson = Lesson::find($id);
-        // $Lessons->update($request->all());
-
-
+        $Lesson->update($request->all());
         // $title = $request -> input('title');
         // $body = $request -> input('body');
         // $free = $request -> input('free');
-
-
-        // $Lessons -> title = 'httrj555f';
+        // $Lessons -> title = $title;
+        // $Lessons -> body = $body;
+        // $Lessons -> free = $free;
         // $Lessons -> save();
-
-        return $request->all();
+        return $Lesson;
     }
 
     /**
@@ -148,9 +145,10 @@ class LessonController extends ApiController
     // {
     //     //
     // }
-    
-    public function destroy(Lesson $Lesson)
+    public function destroy($id)
     {
+        
+        $Lesson = Lesson::find($id);
         $Lesson->delete();
         return $Lesson;
     }
