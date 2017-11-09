@@ -37,7 +37,7 @@ $api->version('v1', function ($api) {
  	$api->get('test', function () {
         throw new Symfony\Component\HttpKernel\Exception\NotFoundHttpException('沒有資料');
     });
-	$api->group(['namespace' => 'App\Api\Controllers','prefix'=>'v1'],function($api){
+	$api->group(['namespace' => 'App\Http\Controllers','prefix'=>'v1'],function($api){
 		$api->resource('lessons'  ,'LessonController');
 
 	});
@@ -51,11 +51,13 @@ $api->version('v1', function ($api) {
 	//     Route::get('tw', 'UsersController@tw');
 	// });
 
-    $api->group(['middleware' => 'api.auth'], function ($api) {
-        $api->get('user', 'App\Http\Controllers\Api\UsersController@index');
-        $api->get('tw', 'App\Http\Controllers\Api\UsersController@tw');
-
+    $api->group(['namespace' => 'App\Http\Controllers\Api','middleware' => 'jwt.auth'], function ($api) {
+        $api->get('user', 'UsersController@index');
+        $api->get('tw', 'UsersController@tw');
     });  
+
+    $api->get('logout', 'App\Http\Controllers\LoginController@logout');    //登出
+
     // throw new Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException([],'沒有資料',null,3);
 
    

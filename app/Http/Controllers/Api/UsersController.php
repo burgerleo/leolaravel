@@ -19,6 +19,6 @@ class UsersController extends Controller
         return $user;
     }
     public function tw(){
-        return '14cc4dd23';
+        return '逮丸';
     } 
 }

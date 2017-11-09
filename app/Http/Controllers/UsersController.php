@@ -10,7 +10,7 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware('api.auth');
+        // $this->middleware('api.auth');
     }
     public function index(){
 //        return User::all();
@@ -19,6 +19,6 @@ class UsersController extends Controller
         return $user;
     }
     public function tw(){
-        return '14cc423';
+        return '14cc423ff';
     }
 }
