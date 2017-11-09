@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-
     protected $statusCode = 200;
 
     public function getStatusCode(){

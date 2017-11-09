@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
@@ -25,6 +25,7 @@ class LoginController extends Controller
             $token = JWTAuth::fromUser($user);
             return $this->sendLoginResponse($request, $token);
         }
+        // return '失敗';
 
         return $this->sendFailedLoginResponse($request);
     }
@@ -44,7 +45,9 @@ class LoginController extends Controller
     }
 
     public function sendFailedLoginResponse(){
-        throw new UnauthorizedHttpException("Bad Credentials");
+        // throw new BadRequestHttpException('參數缺少');
+
+        throw new UnauthorizedHttpException('',"bad Credentials");
     }
 
     public function logout(){

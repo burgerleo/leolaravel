@@ -34,20 +34,29 @@ $api->version('v1', function ($api) {
     $api->get('/hello/', function () {
         return "hello";
     });
-
-	Route::group(['prefix'=>'v1'],function(){
-		Route::resource('lessons'  ,'LessonController');
+ 	$api->get('test', function () {
+        throw new Symfony\Component\HttpKernel\Exception\NotFoundHttpException('沒有資料');
+    });
+	$api->group(['namespace' => 'App\Api\Controllers','prefix'=>'v1'],function($api){
+		$api->resource('lessons'  ,'LessonController');
 
 	});
-	Route::get('test', 'LessonController@showDD');
+	$api->get('showDD', 'App\Http\Controllers\LessonController@showDD');
 
-	Route::post('login', 'LoginController@login');
-	Route::post('register', 'RegisterController@register');
+	$api->post('login', 'App\Http\Controllers\LoginController@login');
+	$api->post('register', 'App\Http\Controllers\RegisterController@register');
 
+	// Route::group(['middleware' => 'api.auth'], function ($api) {
+	//     Route::get('user', 'UsersController@index');
+	//     Route::get('tw', 'UsersController@tw');
+	// });
 
-	Route::get('user', 'UserController@index');
-	Route::get('tw', 'UserController@test');
+    $api->group(['middleware' => 'api.auth'], function ($api) {
+        $api->get('user', 'App\Http\Controllers\Api\UsersController@index');
+        $api->get('tw', 'App\Http\Controllers\Api\UsersController@tw');
 
+    });  
+    // throw new Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException([],'沒有資料',null,3);
 
+   
 });
-
