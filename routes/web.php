@@ -11,6 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::group(['prefix'=>'view'],function(){
+	Route::resource('/' ,'adminController');
+});
+
+Route::group(['middleware' => 'jwt.auth'], function () {
+
+	Route::get('view/date' ,'adminController@date');
+
+});
+
+Route::group(['prefix'=>'log'],function(){
+	Route::resource('/' ,'LogController');
 });

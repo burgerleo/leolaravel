@@ -34,14 +34,12 @@ $api->version('v1', function ($api) {
     $api->get('/hello/', function () {
         return "hello";
     });
- 	$api->get('test', function () {
-        throw new Symfony\Component\HttpKernel\Exception\NotFoundHttpException('沒有資料');
-    });
+
 	$api->group(['namespace' => 'App\Http\Controllers','prefix'=>'v1'],function($api){
 		$api->resource('lessons'  ,'LessonController');
 
 	});
-	$api->get('showDD', 'App\Http\Controllers\LessonController@showDD');
+	// $api->get('showDD', 'App\Http\Controllers\LessonController@showDD');
 
 	$api->post('login', 'App\Http\Controllers\LoginController@login');
 	$api->post('register', 'App\Http\Controllers\RegisterController@register');
@@ -54,11 +52,19 @@ $api->version('v1', function ($api) {
     $api->group(['namespace' => 'App\Http\Controllers\Api','middleware' => 'jwt.auth'], function ($api) {
         $api->get('user', 'UsersController@index');
         $api->get('tw', 'UsersController@tw');
+
+    });  
+    $api->group(['middleware' => 'jwt.auth'], function ($api) {
+
+		$api->get('showDD', 'App\Http\Controllers\LessonController@showDD');
+
     });  
 
     $api->get('logout', 'App\Http\Controllers\LoginController@logout');    //登出
 
     // throw new Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException([],'沒有資料',null,3);
 
+	$api->resource('log'  ,'App\Http\Controllers\Api\LogController');
+	$api->resource('prtg'  ,'App\Http\Controllers\Api\prtgController');
    
 });

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Storage;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
@@ -23,6 +24,9 @@ class LoginController extends Controller
 
         if($user && Hash::check($request->get('password'), $user->password)){
             $token = JWTAuth::fromUser($user);
+            $date = compact('user','token');
+            $json_date = json_encode($date);
+            Storage::disk('local')->put('token.json',$json_date );
             return $this->sendLoginResponse($request, $token);
         }
         // return '失敗';
@@ -37,6 +41,7 @@ class LoginController extends Controller
     }
 
     public function authenticated($token){
+        // return $token;
         return $this->response->array([
             'token' => $token,
             'status_code' => 200,

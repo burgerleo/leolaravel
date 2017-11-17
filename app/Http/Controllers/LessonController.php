@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Lesson;
 use App\Transformer\LessonTransformer;
 use Illuminate\Http\Request;
+
 class LessonController extends ApiController
 {   
+
     protected $lessonTransformar;
-
     public function __construct(LessonTransformer $lessonTransformar){
-
+        $this->middleware('api.auth');
         $this->lessonTransformar = $lessonTransformar;
-    } 
+    }     
     /**
      * Display a listing of the resource.
      *
